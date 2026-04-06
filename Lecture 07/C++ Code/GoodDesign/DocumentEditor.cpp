@@ -1,76 +1,96 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include<fstream>
+#include <fstream>
 
 using namespace std;
 
 // Abstraction for document elements
-class DocumentElement {
+class DocumentElement
+{
 public:
     virtual string render() = 0;
 };
 
 // Concrete implementation for text elements
-class TextElement : public DocumentElement {
+class TextElement : public DocumentElement
+{
 private:
     string text;
 
 public:
-    TextElement(string text) {
+    TextElement(string text)
+    {
         this->text = text;
     }
 
-    string render() override {
+    string render() override
+    {
         return text;
     }
 };
 
+/*
+ * we have made other elements like ImgeElement, NewLineElement, TabSpaceElement
+ * this was because of OCP (open closed principle)
+ */
 // Concrete implementation for image elements
-class ImageElement : public DocumentElement {
+class ImageElement : public DocumentElement
+{
 private:
     string imagePath;
 
 public:
-    ImageElement(string imagePath) {
+    ImageElement(string imagePath)
+    {
         this->imagePath = imagePath;
     }
 
-    string render() override {
+    string render() override
+    {
         return "[Image: " + imagePath + "]";
     }
 };
 
 // NewLineElement represents a line break in the document.
-class NewLineElement : public DocumentElement {
+class NewLineElement : public DocumentElement
+{
 public:
-    string render() override {
+    string render() override
+    {
         return "\n";
     }
 };
 
 // TabSpaceElement represents a tab space in the document.
-class TabSpaceElement : public DocumentElement {
+class TabSpaceElement : public DocumentElement
+{
 public:
-    string render() override {
+    string render() override
+    {
         return "\t";
     }
 };
 
 // Document class responsible for holding a collection of elements
-class Document {
+//* Document is our "Model class" a class which can do CRUD operations - add, delete, update, read
+class Document
+{
 private:
-    vector<DocumentElement*> documentElements;
+    vector<DocumentElement *> documentElements;
 
 public:
-    void addElement(DocumentElement* element) {
+    void addElement(DocumentElement *element)
+    {
         documentElements.push_back(element);
     }
 
     // Renders the document by concatenating the render output of all elements.
-    string render() {
+    string render()
+    {
         string result;
-        for (auto element : documentElements) {
+        for (auto element : documentElements)
+        {
             result += element->render();
         }
         return result;
@@ -78,83 +98,111 @@ public:
 };
 
 // Persistence abstraction
-class Persistence {
+class Persistence
+{
 public:
     virtual void save(string data) = 0;
 };
 
 // FileStorage implementation of Persistence
-class FileStorage : public Persistence {
+class FileStorage : public Persistence
+{
 public:
-    void save(string data) override {
+    void save(string data) override
+    {
         ofstream outFile("document.txt");
-        if (outFile) {
+        if (outFile)
+        {
             outFile << data;
             outFile.close();
             cout << "Document saved to document.txt" << endl;
-        } else {
+        }
+        else
+        {
             cout << "Error: Unable to open file for writing." << endl;
         }
     }
 };
 
 // Placeholder DBStorage implementation
-class DBStorage : public Persistence {
+class DBStorage : public Persistence
+{
 public:
-    void save(string data) override {
+    void save(string data) override
+    {
         // Save to DB
     }
 };
 
 // DocumentEditor class managing client interactions
-class DocumentEditor {
+/*
+ * now you may see this class performing many responsibilities - addElement, render, save
+ * but you can say that DocumentEditor however have many responsibilities - but it's delegating all - render, save, add
+ * now since it's not possible that you can 100% follow SOLID as they are principle and not laws
+ * if your interviewer is fine with it... then good, else you have to break into seperate classes and let your client handle those classes
+ * what you see in the "/lecture 07/standard.png" - seperate classes
+ */
+class DocumentEditor
+{
 private:
-    Document* document;
-    Persistence* storage;
+    Document *document;
+    Persistence *storage;
     string renderedDocument;
 
 public:
-    DocumentEditor(Document* document, Persistence* storage) {
+    DocumentEditor(Document *document, Persistence *storage)
+    {
         this->document = document;
         this->storage = storage;
     }
 
-    void addText(string text) {
+    //* delegating reqest for "addElement"
+    void addText(string text)
+    {
         document->addElement(new TextElement(text));
     }
 
-    void addImage(string imagePath) {
+    void addImage(string imagePath)
+    {
         document->addElement(new ImageElement(imagePath));
     }
 
     // Adds a new line to the document.
-    void addNewLine() {
+    void addNewLine()
+    {
         document->addElement(new NewLineElement());
     }
 
     // Adds a tab space to the document.
-    void addTabSpace() {
+    void addTabSpace()
+    {
         document->addElement(new TabSpaceElement());
     }
 
-    string renderDocument() {
-        if(renderedDocument.empty()) {
+    //* delegating it's responsibility - though you can still argue it have knowledge of some child classes
+    //* and if tomorrow if we are removing something from child class (eg. render / safe document), then this class also needs to be modified
+    string renderDocument()
+    {
+        if (renderedDocument.empty())
+        {
             renderedDocument = document->render();
         }
         return renderedDocument;
     }
 
-    void saveDocument() {
+    void saveDocument()
+    {
         storage->save(renderDocument());
     }
 };
 
 // Client usage example
-int main() {
-    Document* document = new Document();
-    Persistence* persistence = new FileStorage();
-
-    DocumentEditor* editor = new DocumentEditor(document, persistence);
+int main()
+{
+    Document *document = new Document();
+    Persistence *persistence = new FileStorage(); //* you can see, we have chosen, persistence of type = file
+    //* since persistence don't care it's - FileStorage or LocalStorage - therefore 'LSP' followed
+    DocumentEditor *editor = new DocumentEditor(document, persistence);
 
     // Simulate a client using the editor with common text formatting features.
     editor->addText("Hello, world!");
