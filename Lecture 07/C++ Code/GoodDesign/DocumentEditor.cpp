@@ -221,3 +221,24 @@ int main()
 
     return 0;
 }
+
+/*
+ * abstract classes: << DocumentElement >> and << Persistance >> helps to follow:-
+ * SRP (all classes here are doing on job independently, else the are delegating eg. render)
+ * OCP (new subclasses can be added)
+ * LSP (subtitutable children class)
+ * ISP (interface segrigation priciple) - keep interfaces small and relevant to client - [square, circle]  [cube]
+ * DIP (dependency inversion principle) - high level and low level don't talk directly with eachother
+ *
+ *
+ * === you may say classes still have knowledge of the functions (Document knows about render - though it's delegating) ===
+ * so make a new class "DocumentRender"
+ * Document class now have - addElements (earlier also it had), getElements (now we have added it so DocumentRender can use it)
+ * /lecture07/standardUML.png
+ * === but the problem here is "Principle of Least Knowledge" getting violated
+ * "Principle of Least Knowledge" says - a class should only know it's immediate class
+ * but here "DocumentRender (render)" <- "Document (getElement)" <- "DocumentElement (abstract class with render method)"
+ * so it's like prop drilling
+ * and we should avoid this because ==> it makes our application tightly coupled (all 3 classes are )
+
+ */
