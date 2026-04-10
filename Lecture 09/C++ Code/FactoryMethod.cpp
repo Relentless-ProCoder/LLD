@@ -64,7 +64,7 @@ public:
     }
 };
 
-// Factory and its concretions
+//* Factory (only have 1 product) and its concretions
 class BurgerFactory
 {
 public:
