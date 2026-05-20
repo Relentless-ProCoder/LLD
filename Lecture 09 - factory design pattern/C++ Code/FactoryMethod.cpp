@@ -37,6 +37,7 @@ public:
     }
 };
 
+// ======================
 class BasicWheatBurger : public Burger
 {
 public:
@@ -64,14 +65,16 @@ public:
     }
 };
 
-//* Factory (only have 1 product) and its concretions
+// ========================================================
+
+//* Since we have more than 2 factories, we are making the abstract class
 class BurgerFactory
 {
 public:
     virtual Burger *createBurger(string &type) = 0;
 };
 
-//* Making other
+//* Factory 1
 class SinghBurger : public BurgerFactory
 {
 public:
@@ -97,6 +100,7 @@ public:
     }
 };
 
+//* Factory 2
 class KingBurger : public BurgerFactory
 {
 public:

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-//* Abstract Factory have more than 1 product - 'Burger' & 'GarlicBread'
+//* Abstract Factory have 2 or more product - 'Burger' & 'GarlicBread'
 
 // Product 1 --> Burger
 class Burger
