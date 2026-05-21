@@ -4,69 +4,80 @@
 using namespace std;
 
 // Component Interface: defines a common interface for Mario and all power-up decorators.
-class Character {
+class Character
+{
 public:
     virtual string getAbilities() const = 0;
-    virtual ~Character() {}  // Virtual destructor
+    virtual ~Character() {} // Virtual destructor
 };
 
 // Concrete Component: Basic Mario character with no power-ups.
-class Mario : public Character {
+class Mario : public Character
+{
 public:
-    string getAbilities() const override {
+    string getAbilities() const override
+    {
         return "Mario";
     }
 };
 
-// Abstract Decorator: CharacterDecorator "is-a" Charatcer and "has-a" Character.
-class CharacterDecorator : public Character {
+//* Abstract Decorator: CharacterDecorator "is-a" Charatcer and "has-a" Character.
+class CharacterDecorator : public Character
+{
 protected:
-    Character* character;  // Wrapped component
+    Character *character; // Wrapped component
 public:
-    CharacterDecorator(Character* c){
+    CharacterDecorator(Character *c)
+    {
         this->character = c;
     }
-
 };
 
 // Concrete Decorator: Height-Increasing Power-Up.
-class HeightUp : public CharacterDecorator {
+class HeightUp : public CharacterDecorator
+{
 public:
-    HeightUp(Character* c) : CharacterDecorator(c) { }
-    
-    string getAbilities() const override {
+    HeightUp(Character *c) : CharacterDecorator(c) {}
+
+    string getAbilities() const override
+    {
         return character->getAbilities() + " with HeightUp";
     }
-    
 };
 
 // Concrete Decorator: Gun Shooting Power-Up.
-class GunPowerUp : public CharacterDecorator {
+class GunPowerUp : public CharacterDecorator
+{
 public:
-    GunPowerUp(Character* c) : CharacterDecorator(c) { }
-    
-    string getAbilities() const override {
+    GunPowerUp(Character *c) : CharacterDecorator(c) {}
+
+    string getAbilities() const override
+    {
         return character->getAbilities() + " with Gun";
     }
 };
 
 // Concrete Decorator: Star Power-Up (temporary ability).
-class StarPowerUp : public CharacterDecorator {
+class StarPowerUp : public CharacterDecorator
+{
 public:
-    StarPowerUp(Character* c) : CharacterDecorator(c) { }
-    
-    string getAbilities() const override {
+    StarPowerUp(Character *c) : CharacterDecorator(c) {}
+
+    string getAbilities() const override
+    {
         return character->getAbilities() + " with Star Power (Limited Time)";
     }
-    
-    ~StarPowerUp() {
+
+    ~StarPowerUp()
+    {
         cout << "Destroying StarPowerUp Decorator" << endl;
     }
 };
 
-int main() {
+int main()
+{
     // Create a basic Mario character.
-    Character* mario = new Mario();
+    Character *mario = new Mario();
     cout << "Basic Character: " << mario->getAbilities() << endl;
 
     // Decorate Mario with a HeightUp power-up.
