@@ -19,7 +19,9 @@ int main()
         cout << "No restaurants found!" << endl;
         return 0;
     }
+
     cout << "Found Restaurants:" << endl;
+
     for (auto restaurant : restaurantList)
     {
         cout << " - " << restaurant->getName() << endl;

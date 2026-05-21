@@ -7,34 +7,42 @@
 #include "../models/Restaurant.h"
 using namespace std;
 
-class RestaurantManager {
+class RestaurantManager
+{
 private:
-    vector<Restaurant*> restaurants;
-    static RestaurantManager* instance;
+    vector<Restaurant *> restaurants;
+    static RestaurantManager *instance;
 
-    RestaurantManager() {
-        // private constructor
+    RestaurantManager()
+    {
+        //* private constructor - Ninja technique to make SINGLETON CLASS
     }
 
 public:
-    static RestaurantManager* getInstance() {
-        if (!instance) {
+    static RestaurantManager *getInstance()
+    {
+        if (!instance)
+        {
             instance = new RestaurantManager();
         }
         return instance;
     }
 
-    void addRestaurant(Restaurant* r) {
+    void addRestaurant(Restaurant *r)
+    {
         restaurants.push_back(r);
     }
 
-    vector<Restaurant*> searchByLocation(string loc) {
-        vector<Restaurant*> result;
+    vector<Restaurant *> searchByLocation(string loc)
+    {
+        vector<Restaurant *> result;
         transform(loc.begin(), loc.end(), loc.begin(), ::tolower);
-        for (auto r : restaurants) {
+        for (auto r : restaurants)
+        {
             string rl = r->getLocation();
             transform(rl.begin(), rl.end(), rl.begin(), ::tolower);
-            if (rl == loc) {
+            if (rl == loc)
+            {
                 result.push_back(r);
             }
         }
@@ -42,6 +50,6 @@ public:
     }
 };
 
-RestaurantManager* RestaurantManager::instance = nullptr;
+RestaurantManager *RestaurantManager::instance = nullptr;
 
 #endif // RESTAURANT_MANAGER_H

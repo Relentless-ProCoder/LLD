@@ -11,19 +11,21 @@
 #include "../utils/TimeUtils.h"
 using namespace std;
 
-class Order {
+class Order
+{
 protected:
     static int nextOrderId;
     int orderId;
-    User* user;
-    Restaurant* restaurant;
+    User *user;
+    Restaurant *restaurant;
     vector<MenuItem> items;
-    PaymentStrategy* paymentStrategy;
+    PaymentStrategy *paymentStrategy;
     double total;
     string scheduled;
 
 public:
-    Order() {
+    Order()
+    {
         user = nullptr;
         restaurant = nullptr;
         paymentStrategy = nullptr;
@@ -32,15 +34,20 @@ public:
         orderId = ++nextOrderId;
     }
 
-    virtual ~Order() {
+    virtual ~Order()
+    {
         delete paymentStrategy;
     }
 
-    bool processPayment() {
-        if (paymentStrategy) {
+    bool processPayment()
+    {
+        if (paymentStrategy)
+        {
             paymentStrategy->pay(total);
             return true;
-        } else {
+        }
+        else
+        {
             cout << "Please choose a payment mode first" << endl;
             return false;
         }
@@ -48,56 +55,69 @@ public:
 
     virtual string getType() const = 0;
 
-    //Getter and Setters
-    int getOrderId() const {
+    // Getter and Setters
+    int getOrderId() const
+    {
         return orderId;
     }
 
-    void setUser(User* u) {
+    void setUser(User *u)
+    {
         user = u;
     }
 
-    User* getUser() const {
+    User *getUser() const
+    {
         return user;
     }
 
-    void setRestaurant(Restaurant* r) {
+    void setRestaurant(Restaurant *r)
+    {
         restaurant = r;
     }
 
-    Restaurant* getRestaurant() const {
+    Restaurant *getRestaurant() const
+    {
         return restaurant;
     }
 
-    void setItems(const vector<MenuItem>& its) {
+    void setItems(const vector<MenuItem> &its)
+    {
         items = its;
         total = 0;
-        for (auto &i : items) {
+        for (auto &i : items)
+        {
             total += i.getPrice();
         }
     }
 
-    const vector<MenuItem>& getItems() const {
+    const vector<MenuItem> &getItems() const
+    {
         return items;
     }
 
-    void setPaymentStrategy(PaymentStrategy* p) {
+    void setPaymentStrategy(PaymentStrategy *p)
+    {
         paymentStrategy = p;
     }
 
-    void setScheduled(const string& s) {
+    void setScheduled(const string &s)
+    {
         scheduled = s;
     }
 
-    string getScheduled() const {
+    string getScheduled() const
+    {
         return scheduled;
     }
 
-    double getTotal() const {
+    double getTotal() const
+    {
         return total;
     }
 
-    void setTotal(int total) {
+    void setTotal(int total)
+    {
         this->total = total;
     }
 };

@@ -5,43 +5,51 @@
 #include "Cart.h"
 using namespace std;
 
-class User {
+class User
+{
 private:
     int userId;
     string name;
     string address;
-    Cart* cart;
+    Cart *cart;
 
 public:
-    User(int userId, const string& name, const string& address) {
+    User(int userId, const string &name, const string &address)
+    {
         this->userId = userId;
         this->name = name;
         this->address = address;
         cart = new Cart();
     }
 
-    ~User() {
+    ~User()
+    {
         delete cart;
     }
 
     // Getters and Setters
-    string getName() const {
+    string getName() const
+    {
         return name;
     }
 
-    void setName(const string &n) {
+    void setName(const string &n)
+    {
         name = n;
     }
 
-    string getAddress() const {
+    string getAddress() const
+    {
         return address;
     }
 
-    void setAddress(const string &a) {
+    void setAddress(const string &a)
+    {
         address = a;
     }
 
-    Cart* getCart() const {
+    Cart *getCart() const
+    {
         return cart;
     }
 };
