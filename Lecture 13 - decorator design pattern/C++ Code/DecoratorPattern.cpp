@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// Component Interface: defines a common interface for Mario and all power-up decorators.
+//* Component Interface: defines a common interface for Mario and all power-up decorators.
 class Character
 {
 public:
@@ -11,7 +11,7 @@ public:
     virtual ~Character() {} // Virtual destructor
 };
 
-// Concrete Component: Basic Mario character with no power-ups.
+//* Concrete Component: Basic Mario character with no power-ups.
 class Mario : public Character
 {
 public:
