@@ -25,7 +25,7 @@ public:
 class CharacterDecorator : public Character
 {
 protected:
-    Character *character; // Wrapped component
+    Character *character; //* Wrapped component - like 'mario' (will get power ups) OR 'text' (will get bold/italics)
 public:
     CharacterDecorator(Character *c)
     {
