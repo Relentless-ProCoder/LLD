@@ -33,7 +33,7 @@ public:
     }
 };
 
-// Concrete Decorator: Height-Increasing Power-Up.
+//* Concrete Decorator: Height-Increasing Power-Up.
 class HeightUp : public CharacterDecorator
 {
 public:
