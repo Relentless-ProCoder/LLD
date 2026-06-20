@@ -45,7 +45,7 @@ public:
     }
 };
 
-// Concrete Decorator: Gun Shooting Power-Up.
+//* Concrete Decorator: Gun Shooting Power-Up.
 class GunPowerUp : public CharacterDecorator
 {
 public:
