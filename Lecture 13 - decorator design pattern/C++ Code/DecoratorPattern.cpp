@@ -57,7 +57,7 @@ public:
     }
 };
 
-// Concrete Decorator: Star Power-Up (temporary ability).
+//* Concrete Decorator: Star Power-Up (temporary ability).
 class StarPowerUp : public CharacterDecorator
 {
 public:
