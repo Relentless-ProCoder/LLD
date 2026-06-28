@@ -3,16 +3,17 @@ interface Character {
     String getAbilities();
 }
 
-// Concrete Component: Basic Mario character with no power-ups.
+//* */ Concrete Component: Basic Mario character with no power-ups.
 class Mario implements Character {
     public String getAbilities() {
         return "Mario";
     }
 }
 
-// Abstract Decorator: CharacterDecorator "is-a" Character and "has-a" Character.
+// Abstract Decorator: CharacterDecorator "is-a" Character and "has-a"
+// Character.
 abstract class CharacterDecorator implements Character {
-    protected Character character;  // Wrapped component
+    protected Character character; // Wrapped component
 
     public CharacterDecorator(Character c) {
         this.character = c;
