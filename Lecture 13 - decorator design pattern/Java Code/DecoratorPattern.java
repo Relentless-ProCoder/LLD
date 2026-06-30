@@ -10,7 +10,7 @@ class Mario implements Character {
     }
 }
 
-// Abstract Decorator: CharacterDecorator "is-a" Character and "has-a"
+//* */ Abstract Decorator: CharacterDecorator "is-a" Character and "has-a"
 // Character.
 abstract class CharacterDecorator implements Character {
     protected Character character; // Wrapped component
