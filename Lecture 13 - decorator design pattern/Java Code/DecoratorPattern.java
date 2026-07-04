@@ -31,7 +31,7 @@ class HeightUp extends CharacterDecorator {
     }
 }
 
-// Concrete Decorator: Gun Shooting Power-Up.
+// * */ Concrete Decorator: Gun Shooting Power-Up.
 class GunPowerUp extends CharacterDecorator {
     public GunPowerUp(Character c) {
         super(c);
