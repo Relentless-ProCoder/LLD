@@ -42,7 +42,7 @@ class GunPowerUp extends CharacterDecorator {
     }
 }
 
-// Concrete Decorator: Star Power-Up (temporary ability).
+// * */ Concrete Decorator: Star Power-Up (temporary ability).
 class StarPowerUp extends CharacterDecorator {
     public StarPowerUp(Character c) {
         super(c);
